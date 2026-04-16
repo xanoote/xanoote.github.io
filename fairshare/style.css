@@ -184,26 +184,42 @@ header {
     left: 20px;
     background: var(--pixel-skin-1);
     box-shadow:
-        0 -8px 0 0 var(--pixel-hair-1), /* Hair */
-        0 -16px 0 0 var(--pixel-hair-1),
-        -4px -8px 0 0 var(--pixel-hair-1),
-        4px -8px 0 0 var(--pixel-hair-1),
-        0 8px 0 0 #334155, /* Shirt */
-        0 16px 0 0 #334155,
-        0 24px 0 0 #1e293b; /* Pants */
+        /* Hair */
+        0 -8px 0 0 var(--pixel-hair-1), 0 -16px 0 0 var(--pixel-hair-1),
+        -4px -8px 0 0 var(--pixel-hair-1), 4px -8px 0 0 var(--pixel-hair-1),
+        /* Shirt */
+        0 8px 0 0 #334155, 0 16px 0 0 #334155,
+        /* Pants */
+        0 24px 0 0 #1e293b;
+}
+.pixel-character.p1::after {
+    content: "";
+    position: absolute;
+    top: 10px; left: 6px;
+    width: 6px; height: 6px;
+    background: #000;
+    box-shadow: 14px 0 0 #000, 7px 10px 0 #000, 13px 10px 0 #000;
 }
 
 .pixel-character.p2 {
     right: 20px;
     background: var(--pixel-skin-2);
     box-shadow:
-        0 -8px 0 0 var(--pixel-hair-2), /* Hair */
-        0 -16px 0 0 var(--pixel-hair-2),
-        -4px -8px 0 0 var(--pixel-hair-2),
-        4px -8px 0 0 var(--pixel-hair-2),
-        0 8px 0 0 #be185d, /* Shirt */
-        0 16px 0 0 #be185d,
-        0 24px 0 0 #4c0519; /* Pants */
+        /* Hair */
+        0 -8px 0 0 var(--pixel-hair-2), 0 -16px 0 0 var(--pixel-hair-2),
+        -4px -8px 0 0 var(--pixel-hair-2), 4px -8px 0 0 var(--pixel-hair-2),
+        /* Shirt */
+        0 8px 0 0 #be185d, 0 16px 0 0 #be185d,
+        /* Pants */
+        0 24px 0 0 #4c0519;
+}
+.pixel-character.p2::after {
+    content: "";
+    position: absolute;
+    top: 10px; left: 6px;
+    width: 6px; height: 6px;
+    background: #000;
+    box-shadow: 14px 0 0 #000, 7px 10px 0 #000, 13px 10px 0 #000;
 }
 
 .pixel-heart {
