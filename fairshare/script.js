@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const expensesList = document.getElementById('expenses-list');
     const addExpenseBtn = document.getElementById('add-expense-btn');
-    const totalExpensesSpan = document.getElementById('total-expenses');
 
     const resultsContainer = document.getElementById('results-container');
 
@@ -129,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderPersonInputs() {
         personsContainer.innerHTML = '';
 
-        persons.forEach((person, index) => {
+        persons.forEach((person) => {
             const inputField = document.createElement('div');
             inputField.className = 'input-field';
 
@@ -205,24 +204,9 @@ document.addEventListener('DOMContentLoaded', () => {
         renderResults();
         calculate();
     }
-
-    function removePerson(personId) {
-        // Don't allow removing if only 2 persons left
-        if (persons.length <= 2) {
-            alert('Minimum 2 persons required.');
-            return;
-        }
-
-        persons = persons.filter(p => p.id !== personId);
-        renderPersonInputs();
-        renderIncomeStats();
-        renderResults();
-        calculate();
-    }
-
-    // --- Currency Auto-Detection Logic ---
+// --- Currency Auto-Detection Logic ---
     function detectDefaultCurrency() {
-        const lang = navigator.language || navigator.userLanguage;
+        const lang = navigator.language || 'en-US';
         if (lang.startsWith('sv-SE')) return 'SEK';
         if (lang.startsWith('no-NO')) return 'NOK';
         if (lang.startsWith('da-DK')) return 'DKK';
