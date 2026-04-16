@@ -60,7 +60,7 @@ header {
     font-family: 'Press Start 2P', cursive;
     font-size: 3rem;
     color: var(--primary);
-    text-shadow: 3px 3px 0px var(--secondary);
+    text-shadow: 3px 3px 0 var(--secondary);
     margin-bottom: 20px;
     animation: glitch 3s infinite;
 }
@@ -273,7 +273,6 @@ h2 {
 }
 
 .bill-icon {
-    background: var(--accent);
     box-shadow: 2px 2px 0 var(--bg-deep);
 }
 
@@ -385,13 +384,13 @@ input:focus {
     font-size: 0.6rem;
     cursor: pointer;
     transition: all 0.2s ease;
-    box-shadow: 0 4px 0 var(--primary-dark);
+    box-shadow: 0 4px 0;
     margin-bottom: 24px;
 }
 
 .btn-pixel:active {
     transform: translateY(2px);
-    box-shadow: 0 2px 0 var(--primary-dark);
+    box-shadow: 0 2px 0;
 }
 
 .remove-btn {
