@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FairShare // Proportional Split</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Outfit:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="grain-overlay"></div>
+    <div class="container">
+        <header>
+            <div class="pixel-couple-container">
+                <div class="pixel-character p1"></div>
+                <div class="pixel-character p2"></div>
+                <div class="pixel-heart"></div>
+            </div>
+            <h1 class="glitch-text">FairShare</h1>
+            <p class="description">
+                A proportional economy engine for modern households.
+                Split bills based on income ratio, ensuring financial equilibrium.
+            </p>
+            <div class="currency-selector-wrapper">
+                <div class="currency-selector-trigger" id="currency-trigger">
+                    <span class="selector-label">Currency Mode:</span>
+                    <span id="current-currency-display">USD ($)</span>
+                </div>
+                <div class="currency-options" id="currency-options">
+                    <div class="currency-option" data-value="USD">USD ($)</div>
+                    <div class="currency-option" data-value="EUR">EUR (€)</div>
+                    <div class="currency-option" data-value="SEK">SEK (kr)</div>
+                    <div class="currency-option" data-value="NOK">NOK (kr)</div>
+                    <div class="currency-option" data-value="DKK">DKK (kr)</div>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div class="main-grid">
+                <section class="card" id="income-section">
+                    <div class="card-header">
+                        <h2>Income Stream</h2>
+                        <div class="pixel-icon-small money-icon"></div>
+                    </div>
+                    <div class="input-group-row">
+                        <div class="input-field">
+                            <label for="income1">Person 01</label>
+                            <input type="number" id="income1" placeholder="0.00" min="0">
+                        </div>
+                        <div class="input-field">
+                            <label for="income2">Person 02</label>
+                            <input type="number" id="income2" placeholder="0.00" min="0">
+                        </div>
+                    </div>
+                    <div class="income-stats-grid">
+                        <div class="stat-box">
+                            <span class="stat-label">Total Combined</span>
+                            <span class="stat-value" id="total-income">0</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-label">P1 Ratio</span>
+                            <span class="stat-value" id="p1-percent">0%</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-label">P2 Ratio</span>
+                            <span class="stat-value" id="p2-percent">0%</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="card" id="expense-section">
+                    <div class="card-header">
+                        <h2>Shared Outlays</h2>
+                        <div class="pixel-icon-small bill-icon"></div>
+                    </div>
+                    <div id="expenses-list">
+                        <!-- Dynamic expense fields -->
+                    </div>
+                    <button id="add-expense-btn" class="btn-pixel">+ Add New Line</button>
+                    <div class="expense-footer">
+                        <span class="footer-label">Cumulative Expenses</span>
+                        <span class="footer-value" id="total-expenses">0</span>
+                    </div>
+                </section>
+
+                <section class="card results-card" id="results-section">
+                    <div class="card-header">
+                        <h2>The Equilibrium</h2>
+                    </div>
+                    <div class="results-display">
+                        <div class="result-box">
+                            <span class="result-label">Person 01 Contribution</span>
+                            <div class="result-amount" id="p1-final-share">0</div>
+                        </div>
+                        <div class="result-box">
+                            <span class="result-label">Person 02 Contribution</span>
+                            <div class="result-amount" id="p2-final-share">0</div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <p>&copy; 2026 FairShare // Engine v2.0</p>
+                <div class="pixel-footer-deco"></div>
+            </div>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
