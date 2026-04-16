@@ -195,10 +195,10 @@ header {
 .pixel-character.p1::after {
     content: "";
     position: absolute;
-    top: 10px; left: 6px;
-    width: 6px; height: 6px;
+    top: 10px; left: 10px;
+    width: 5px; height: 5px;
     background: #000;
-    box-shadow: 14px 0 0 #000, 7px 10px 0 #000, 13px 10px 0 #000;
+    box-shadow: 14px 0 0 #000, 7px 10px 0 #000, 5px 10px 0 #000;
 }
 
 .pixel-character.p2 {
@@ -216,10 +216,10 @@ header {
 .pixel-character.p2::after {
     content: "";
     position: absolute;
-    top: 10px; left: 6px;
-    width: 6px; height: 6px;
+    top: 10px; left: 2px;
+    width: 5px; height: 5px;
     background: #000;
-    box-shadow: 14px 0 0 #000, 7px 10px 0 #000, 13px 10px 0 #000;
+    box-shadow: 14px 0 0 #000, 7px 10px 0 #000, 10px 10px 0 #000;
 }
 
 .pixel-heart {
