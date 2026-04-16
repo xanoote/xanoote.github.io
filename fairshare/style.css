@@ -519,6 +519,102 @@ footer p {
     margin-bottom: 32px !important;
 }
 
+/* Info Content Section */
+.info-section-content {
+    margin-top: 80px;
+    margin-bottom: 60px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.info-section-container {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 24px;
+    padding: 40px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.info-section-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.info-section-intro h2,
+.info-section-benefits h3,
+.info-section-faq h3 {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1.2rem;
+    color: var(--primary);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.info-section-intro p,
+.info-section-benefits p {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-main);
+    margin-bottom: 30px;
+    text-align: center;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.info-section-faq {
+    margin-top: 40px;
+}
+
+.faq-item {
+    margin-bottom: 25px;
+    padding: 20px;
+    background: var(--bg-accent);
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.faq-item:hover {
+    border-color: var(--primary);
+    transform: translateY(-2px);
+}
+
+.faq-item h4 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 10px;
+}
+
+.faq-item p {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--text-main);
+    margin: 0;
+}
+
+.info-section-cta {
+    margin-top: 40px;
+    text-align: center;
+    padding: 25px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.info-section-cta p {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: white;
+    margin: 0;
+}
+
 @media (max-width: 768px) {
     .main-grid {
         grid-template-columns: 1fr;
@@ -530,5 +626,33 @@ footer p {
 
     .glitch-text {
         font-size: 2rem;
+    }
+
+    .info-section-content {
+        margin-top: 60px;
+        margin-bottom: 40px;
+    }
+
+    .info-section-container {
+        padding: 30px;
+    }
+
+    .info-section-intro h2,
+    .info-section-benefits h3,
+    .info-section-faq h3 {
+        font-size: 1.1rem;
+    }
+
+    .info-section-intro p,
+    .info-section-benefits p {
+        font-size: 0.9rem;
+    }
+
+    .faq-item {
+        padding: 15px;
+    }
+
+    .info-section-cta {
+        padding: 20px;
     }
 }
