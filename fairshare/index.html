@@ -46,29 +46,12 @@
                         <h2>Income Stream</h2>
                         <div class="pixel-icon-small money-icon"></div>
                     </div>
-                    <div class="input-group-row">
-                        <div class="input-field">
-                            <label for="income1">Person 01</label>
-                            <input type="number" id="income1" placeholder="0.00" min="0">
-                        </div>
-                        <div class="input-field">
-                            <label for="income2">Person 02</label>
-                            <input type="number" id="income2" placeholder="0.00" min="0">
-                        </div>
+                    <div class="input-group-row" id="persons-container">
+                        <!-- Dynamically populated by script.js -->
                     </div>
-                    <div class="income-stats-grid">
-                        <div class="stat-box">
-                            <span class="stat-label">Total Combined</span>
-                            <span class="stat-value" id="total-income">0</span>
-                        </div>
-                        <div class="stat-box">
-                            <span class="stat-label">P1 Ratio</span>
-                            <span class="stat-value" id="p1-percent">0%</span>
-                        </div>
-                        <div class="stat-box">
-                            <span class="stat-label">P2 Ratio</span>
-                            <span class="stat-value" id="p2-percent">0%</span>
-                        </div>
+                    <button id="add-person-btn" class="btn-pixel" style="margin-bottom: 20px;">+ Add Person</button>
+                    <div class="income-stats-grid" id="income-stats-container">
+                        <!-- Dynamically populated by script.js -->
                     </div>
                 </section>
 
@@ -91,15 +74,8 @@
                     <div class="card-header">
                         <h2>The Equilibrium</h2>
                     </div>
-                    <div class="results-display">
-                        <div class="result-box">
-                            <span class="result-label">Person 01 Contribution</span>
-                            <div class="result-amount" id="p1-final-share">0</div>
-                        </div>
-                        <div class="result-box">
-                            <span class="result-label">Person 02 Contribution</span>
-                            <div class="result-amount" id="p2-final-share">0</div>
-                        </div>
+                    <div class="results-display" id="results-container">
+                        <!-- Dynamically populated by script.js -->
                     </div>
                 </section>
             </div>

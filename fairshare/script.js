@@ -1,26 +1,29 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Elements
-    const income1Input = document.getElementById('income1');
-    const income2Input = document.getElementById('income2');
-    const totalIncomeSpan = document.getElementById('total-income');
-    const p1PercentSpan = document.getElementById('p1-percent');
-    const p2PercentSpan = document.getElementById('p2-percent');
-
-    // New Custom Currency Selector Elements
+    // DOM Elements - Core Containers
     const currencyTrigger = document.getElementById('currency-trigger');
     const currencyOptions = document.getElementById('currency-options');
     const currencyDisplay = document.getElementById('current-currency-display');
     const currencyOptionElements = document.querySelectorAll('.currency-option');
 
+    const personsContainer = document.getElementById('persons-container');
+    const incomeStatsContainer = document.getElementById('income-stats-container');
+    const addPersonBtn = document.getElementById('add-person-btn');
+
     const expensesList = document.getElementById('expenses-list');
     const addExpenseBtn = document.getElementById('add-expense-btn');
     const totalExpensesSpan = document.getElementById('total-expenses');
 
-    const p1FinalShareSpan = document.getElementById('p1-final-share');
-    const p2FinalShareSpan = document.getElementById('p2-final-share');
+    const resultsContainer = document.getElementById('results-container');
 
     // Currency State
     let currentCurrency = 'USD';
+
+    // Dynamic Persons Data Model
+    let persons = [
+        { id: 0, name: 'Person 01', income: 0 },
+        { id: 1, name: 'Person 02', income: 0 }
+    ];
+    let nextPersonId = 2;
 
     // Initial State
     let expenses = [
@@ -36,45 +39,62 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function calculate() {
-        // Convert everything to "cents" (multiply by 100) to perform integer arithmetic
-        const inc1Cents = Math.round((parseFloat(income1Input.value) || 0) * 100);
-        const inc2Cents = Math.round((parseFloat(income2Input.value) || 0) * 100);
-        const totalIncomeCents = inc1Cents + inc2Cents;
+        // Calculate income in cents for each person
+        const personIncomes = persons.map(person => {
+            const input = document.querySelector(`input[data-person-id="${person.id}"]`);
+            return {
+                id: person.id,
+                cents: Math.round((parseFloat(input?.value) || 0) * 100)
+            };
+        });
 
-        let p1Percent = 0;
-        let p2Percent = 0;
+        // Total income in cents
+        const totalIncomeCents = personIncomes.reduce((sum, p) => sum + p.cents, 0);
 
-        if (totalIncomeCents > 0) {
-            p1Percent = (inc1Cents / totalIncomeCents) * 100;
-            p2Percent = (inc2Cents / totalIncomeCents) * 100;
+        // Calculate percentages for each person
+        const personPercentages = personIncomes.map(p => ({
+            id: p.id,
+            percent: totalIncomeCents > 0 ? (p.cents / totalIncomeCents) * 100 : 0
+        }));
+
+        // Update total income display
+        const totalIncomeSpan = document.getElementById('total-income');
+        if (totalIncomeSpan) {
+            totalIncomeSpan.textContent = formatCurrency(totalIncomeCents / 100);
         }
 
-        // Update Income Stats
-        totalIncomeSpan.textContent = formatCurrency(totalIncomeCents / 100);
-        p1PercentSpan.textContent = `${p1Percent.toFixed(2)}%`;
-        p2PercentSpan.textContent = `${p2Percent.toFixed(2)}%`;
+        // Update income percentage stats for each person
+        personPercentages.forEach(pp => {
+            const percentSpan = document.querySelector(`span[data-person-percent-id="${pp.id}"]`);
+            if (percentSpan) {
+                percentSpan.textContent = `${pp.percent.toFixed(2)}%`;
+            }
+        });
 
-        // Calculate Total Expenses in cents
+        // Calculate total expenses in cents
         let totalExpensesCents = 0;
         const expenseInputs = document.querySelectorAll('.expense-amount');
         expenseInputs.forEach(input => {
             totalExpensesCents += Math.round((parseFloat(input.value) || 0) * 100);
         });
 
-        totalExpensesSpan.textContent = formatCurrency(totalExpensesCents / 100);
+        const totalExpensesSpanElement = document.getElementById('total-expenses');
+        if (totalExpensesSpanElement) {
+            totalExpensesSpanElement.textContent = formatCurrency(totalExpensesCents / 100);
+        }
 
-        // Final Share Calculation
-		const p1PercentRounded = parseFloat(p1Percent.toFixed(2));
-		const p2PercentRounded = parseFloat(p2Percent.toFixed(2));
-        const p1ShareCents = totalIncomeCents > 0
-            ? Math.round(totalExpensesCents * (p1PercentRounded / 100))
-            : 0;
-        const p2ShareCents = totalIncomeCents > 0
-            ? Math.round(totalExpensesCents * (p2PercentRounded / 100))
-            : 0;
+        // Calculate final shares for each person
+        personPercentages.forEach(pp => {
+            const percentRounded = parseFloat(pp.percent.toFixed(2));
+            const shareCents = totalIncomeCents > 0
+                ? Math.round(totalExpensesCents * (percentRounded / 100))
+                : 0;
 
-        p1FinalShareSpan.textContent = formatCurrency(p1ShareCents / 100);
-        p2FinalShareSpan.textContent = formatCurrency(p2ShareCents / 100);
+            const shareSpan = document.querySelector(`div[data-person-share-id="${pp.id}"]`);
+            if (shareSpan) {
+                shareSpan.textContent = formatCurrency(shareCents / 100);
+            }
+        });
     }
 
     function createExpenseRow(name = '', amount = 0) {
@@ -104,6 +124,100 @@ document.addEventListener('DOMContentLoaded', () => {
         expenses.forEach(exp => {
             expensesList.appendChild(createExpenseRow(exp.name, exp.amount));
         });
+    }
+
+    function renderPersonInputs() {
+        personsContainer.innerHTML = '';
+
+        persons.forEach((person, index) => {
+            const inputField = document.createElement('div');
+            inputField.className = 'input-field';
+
+            const label = document.createElement('label');
+            label.textContent = person.name;
+
+            const input = document.createElement('input');
+            input.type = 'number';
+            input.className = 'person-income-input';
+            input.setAttribute('data-person-id', person.id);
+            input.value = person.income || 0;
+            input.placeholder = '0.00';
+            input.min = '0';
+            input.addEventListener('input', (e) => {
+                // Update the persons data model with the new income value
+                const personObj = persons.find(p => p.id === person.id);
+                if (personObj) {
+                    personObj.income = parseFloat(e.target.value) || 0;
+                }
+                calculate();
+            });
+
+            inputField.appendChild(label);
+            inputField.appendChild(input);
+            personsContainer.appendChild(inputField);
+        });
+    }
+
+    function renderIncomeStats() {
+        incomeStatsContainer.innerHTML = '';
+
+        // Total combined stat box
+        const totalBox = document.createElement('div');
+        totalBox.className = 'stat-box';
+        totalBox.innerHTML = `
+            <span class="stat-label">Total Combined</span>
+            <span class="stat-value" id="total-income">0</span>
+        `;
+        incomeStatsContainer.appendChild(totalBox);
+
+        // Ratio stat box for each person
+        persons.forEach(person => {
+            const ratioBox = document.createElement('div');
+            ratioBox.className = 'stat-box p-ratio-box';
+            ratioBox.innerHTML = `
+                <span class="stat-label">${person.name} Ratio</span>
+                <span class="stat-value" data-person-percent-id="${person.id}">0%</span>
+            `;
+            incomeStatsContainer.appendChild(ratioBox);
+        });
+    }
+
+    function renderResults() {
+        resultsContainer.innerHTML = '';
+
+        persons.forEach(person => {
+            const resultBox = document.createElement('div');
+            resultBox.className = 'result-box';
+            resultBox.innerHTML = `
+                <span class="result-label">${person.name} Contribution</span>
+                <div class="result-amount" data-person-share-id="${person.id}">0</div>
+            `;
+            resultsContainer.appendChild(resultBox);
+        });
+    }
+
+    function addPerson() {
+        persons.push({ id: nextPersonId, name: `Person ${String(nextPersonId + 1).padStart(2, '0')}`, income: 0 });
+        nextPersonId++;
+
+        renderPersonInputs();
+        renderIncomeStats();
+        renderResults();
+        calculate();
+    }
+
+    function removePerson(personId) {
+        // Don't allow removing if only 2 persons left
+        if (persons.length <= 2) {
+            alert('Minimum 2 persons required.');
+            return;
+        }
+
+        persons = persons.filter(p => p.id !== personId);
+        renderPersonInputs();
+        renderIncomeStats();
+        renderResults();
+        calculate();
     }
 
     // --- Currency Auto-Detection Logic ---
@@ -144,11 +258,7 @@ document.addEventListener('DOMContentLoaded', () => {
         calculate();
     }
 
-    // --- Listeners ---
-    income1Input.addEventListener('input', calculate);
-    income2Input.addEventListener('input', calculate);
-
-    // Custom Select Logic
+    // --- Currency Selector Listeners ---
     currencyTrigger.addEventListener('click', () => {
         currencyOptions.classList.toggle('open');
     });
@@ -167,12 +277,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // --- Expense & Person Management Listeners ---
     addExpenseBtn.addEventListener('click', () => {
         expensesList.appendChild(createExpenseRow());
         calculate();
     });
 
-    // Initialization
+    addPersonBtn.addEventListener('click', addPerson);
+
+    // --- Initialization ---
+    renderPersonInputs();
+    renderIncomeStats();
+    renderResults();
     initExpenses();
     updateCurrencyUI(detectDefaultCurrency());
     calculate();
