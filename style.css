@@ -521,11 +521,8 @@ footer p {
 
 /* Info Content Section */
 .info-section-content {
-    margin-top: 80px;
-    margin-bottom: 60px;
     max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 80px auto 60px;
 }
 
 .info-section-container {
@@ -626,6 +623,14 @@ footer p {
 
     .glitch-text {
         font-size: 2rem;
+    }
+
+    .card {
+        padding: 20px;
+        width: 100%;
+        overflow: hidden;
+        margin: 0 auto;
+        box-sizing: border-box;
     }
 
     .info-section-content {
